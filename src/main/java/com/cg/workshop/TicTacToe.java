@@ -4,13 +4,17 @@ public class TicTacToe {
 
 	public static void main(String[] args) {
 		System.out.println("Lets play TicTacToe game");
-		gameboard();	
+		char [] board = createBoard();
+		
 	}
-	public static char[] gameboard() {
-		char[] board = new char[9];
-		for (char index : board) {
-			index=' ';
-			
+
+	/**
+	 * @return  uc1
+	 */
+	public static char[] createBoard() {
+		char[] board = new char[10];
+		for (int i=0; i<board.length;i++) {
+			board[i] = ' ';
 		}
 		return board;
 	}
