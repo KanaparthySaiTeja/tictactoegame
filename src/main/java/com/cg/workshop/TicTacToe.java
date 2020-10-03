@@ -14,7 +14,8 @@ public class TicTacToe {
 		USER = letter();
 		COMPUTER = computer(USER);
 		showBoard(board);
-		
+		int emptycell = checkBoard(board);
+		makeAMove(board, emptycell,USER);
 	}
 
 	/**
@@ -83,6 +84,19 @@ public static int checkBoard(char[] board) {
 		return checkBoard(board);
 	}
 
+}
+
+/**
+ * uc5
+ * @param board
+ * @param emptycell
+ * @param player
+ */
+public static void makeAMove(char[] board, int emptycell,char player) {
+
+	board[emptycell] = player;
+	System.out.println("updated Board");
+	showBoard(board);
 }
 	
 }
