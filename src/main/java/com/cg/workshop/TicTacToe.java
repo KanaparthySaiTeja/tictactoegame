@@ -18,6 +18,10 @@ public class TicTacToe {
 		showBoard(board);
 		int emptycell = checkBoard(board);
 		String player=startGame(board, emptycell,USER,COMPUTER);
+		int emptycell2 = checkBoard(board);
+		player=nextMove(player,board, emptycell2);
+		int emptycell3 = checkBoard(board);
+		player=nextMove(player,board, emptycell3);
 		
 	}
 
@@ -125,5 +129,25 @@ return "USER TURN";
 	}
 	return null;
 }
+/**
+ * uc7
+ * @param player
+ * @param board
+ * @param emptycell
+ * @return
+ */
+public static String nextMove(String player,char [] board, int emptycell) {
+if(player=="USER TURN") {
+	System.out.println("Computer's Turn");
+	makeAMove(board,emptycell,COMPUTER);
+	return "COMPUTER TURN";
+}
+else {
+	System.out.println("User's Turn");
+	makeAMove(board,emptycell,USER);
+	
+	return "USER TURN";
+}
+	}
 	
 }
