@@ -8,6 +8,8 @@ public class TicTacToe {
 	static char[] board;
 	static char USER;
 	static char COMPUTER;
+	static final int HEAD = 1;
+	static final int TAIL = 2;
 	public static void main(String[] args) {
 		System.out.println("Lets play TicTacToe game");
 		char[] board = createBoard();
@@ -15,7 +17,8 @@ public class TicTacToe {
 		COMPUTER = computer(USER);
 		showBoard(board);
 		int emptycell = checkBoard(board);
-		makeAMove(board, emptycell,USER);
+		String player=startGame(board, emptycell,USER,COMPUTER);
+		
 	}
 
 	/**
@@ -97,6 +100,30 @@ public static void makeAMove(char[] board, int emptycell,char player) {
 	board[emptycell] = player;
 	System.out.println("updated Board");
 	showBoard(board);
+}
+
+/**
+ * uc6
+ * @param board
+ * @param emptycell
+ * @param USER
+ * @param COMPUTER
+ * @return
+ */
+public static String startGame(char[] board, int emptycell,char USER,char COMPUTER) {
+	int toss = (int) (Math.random() * 2 + 1);
+	if (toss == HEAD) {
+		System.out.println("User plays first");
+		makeAMove(board, emptycell,USER);
+		
+return "USER TURN";
+	}
+	if (toss == TAIL) {
+		System.out.println("Computer plays first");
+		makeAMove(board, emptycell,COMPUTER);
+		return "COMPUTER TURN";
+	}
+	return null;
 }
 	
 }
