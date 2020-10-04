@@ -19,7 +19,7 @@ public class TicTacToe {
 		showBoard(board);
 		int emptycell = 1;
 		player = startGame();
-
+		nextMove(emptycell, player, board);
 	}
 
 	/**
@@ -101,6 +101,52 @@ public class TicTacToe {
 		board[emptycell] = player;
 		System.out.println("updated Board");
 		showBoard(board);
+	}
+
+	public static void nextMove(int emptycell, int player, char[] board) {
+		int k = 0;
+		while (k == 0) {
+			int toss = startGame();
+			int i;
+			for (i = 0; i < 9; i++, toss++) {
+				if (toss % 2 == HEAD) {
+					System.out.println("USER'S TURN");
+					makeAMove(board, emptycell, USER);
+					if (isWinner(board, USER)) {
+						System.out.println("USER win");
+						break;
+					}
+				}
+
+				else {
+
+					System.out.println("COMPUTER'S TURN");
+					if (!(computerTurn(board, COMPUTER))) {
+
+						if (!(checkOpponent(board, USER, COMPUTER))) {
+
+							if (cornerCon(board, COMPUTER)) {
+								showBoard(board);
+
+							}
+
+						} else {
+							showBoard(board);
+						}
+					} else {
+						showBoard(board);
+					}
+					if (isWinner(board, COMPUTER)) {
+						System.out.println("Computer win");
+						break;
+
+					}
+				}
+			}
+			if (i == 9) {
+				System.out.println("Game Tie");
+			} 
+		}
 	}
 
 	/**
@@ -226,6 +272,43 @@ public class TicTacToe {
 			f = true;
 		} else
 			System.out.println("Checked opponent Condition");
+		return f;
+	}
+	/**uc 10 &uc 11
+	 * @param board
+	 * @param COMPUTER
+	 * @return
+	 */
+	private static boolean cornerCon(char[] board, char COMPUTER) {
+		boolean f = false;
+		if (board[1] == ' ') {
+			board[1] = COMPUTER;
+			f = true;
+		} else if (board[3] == ' ') {
+			board[3] = COMPUTER;
+			f = true;
+		} else if (board[7] == ' ') {
+			board[7] = COMPUTER;
+			f = true;
+		} else if (board[9] == ' ') {
+			board[9] = COMPUTER;
+			f = true;
+		} else if (board[5] == ' ') {
+			board[5] = COMPUTER;
+			f = true;
+		} else if (board[2] == ' ') {
+			board[2] = COMPUTER;
+			f = true;
+		} else if (board[4] == ' ') {
+			board[4] = COMPUTER;
+			f = true;
+		} else if (board[6] == ' ') {
+			board[6] = COMPUTER;
+			f = true;
+		} else if (board[8] == ' ') {
+			board[8] = COMPUTER;
+			f = true;
+		}
 		return f;
 	}
 }
