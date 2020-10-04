@@ -10,18 +10,15 @@ public class TicTacToe {
 	static char COMPUTER;
 	static final int HEAD = 1;
 	static final int TAIL = 2;
+	private static int player;
 	public static void main(String[] args) {
 		System.out.println("Lets play TicTacToe game");
 		char[] board = createBoard();
 		USER = letter();
 		COMPUTER = computer(USER);
 		showBoard(board);
-		int emptycell = checkBoard(board);
-		String player=startGame(board, emptycell,USER,COMPUTER);
-		int emptycell2 = checkBoard(board);
-		player=nextMove(player,board, emptycell2);
-		int emptycell3 = checkBoard(board);
-		player=nextMove(player,board, emptycell3);
+		int emptycell = 1;
+		player = startGame();
 		
 	}
 
@@ -106,48 +103,32 @@ public static void makeAMove(char[] board, int emptycell,char player) {
 	showBoard(board);
 }
 
-/**
- * uc6
- * @param board
- * @param emptycell
- * @param USER
- * @param COMPUTER
+
+/**uc6
  * @return
  */
-public static String startGame(char[] board, int emptycell,char USER,char COMPUTER) {
-	int toss = (int) (Math.random() * 2 + 1);
-	if (toss == HEAD) {
-		System.out.println("User plays first");
-		makeAMove(board, emptycell,USER);
-		
-return "USER TURN";
-	}
-	if (toss == TAIL) {
-		System.out.println("Computer plays first");
-		makeAMove(board, emptycell,COMPUTER);
-		return "COMPUTER TURN";
-	}
-	return null;
+public static int startGame() {
+	int toss = (int) (Math.random() * 10) % 2;
+	return toss;
 }
+
 /**
  * uc7
- * @param player
+ * 
  * @param board
- * @param emptycell
+ * @param ch
  * @return
  */
-public static String nextMove(String player,char [] board, int emptycell) {
-if(player=="USER TURN") {
-	System.out.println("Computer's Turn");
-	makeAMove(board,emptycell,COMPUTER);
-	return "COMPUTER TURN";
+private static boolean isWinner(char[] board, char ch) {
+	return ((board[1] == ch && board[2] == ch && board[3] == ch)
+			|| (board[4] == ch && board[5] == ch && board[6] == ch)
+			|| (board[7] == ch && board[8] == ch && board[9] == ch)
+			|| (board[1] == ch && board[4] == ch && board[7] == ch)
+			|| (board[2] == ch && board[5] == ch && board[8] == ch)
+			|| (board[3] == ch && board[6] == ch && board[9] == ch)
+			|| (board[1] == ch && board[5] == ch && board[9] == ch)
+			|| (board[7] == ch && board[5] == ch && board[3] == ch));
 }
-else {
-	System.out.println("User's Turn");
-	makeAMove(board,emptycell,USER);
-	
-	return "USER TURN";
-}
-	}
+
 	
 }
