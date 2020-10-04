@@ -3,6 +3,7 @@ package com.cg.workshop;
 import java.util.Scanner;
 
 public class TicTacToe {
+
 	static Scanner sc = new Scanner(System.in);
 	static char[] board;
 	static char USER;
@@ -20,6 +21,7 @@ public class TicTacToe {
 		int emptycell = 1;
 		player = startGame();
 		nextMove(emptycell, player, board);
+
 	}
 
 	/**
@@ -27,7 +29,7 @@ public class TicTacToe {
 	 */
 	private static char[] createBoard() {
 		char[] board = new char[10];
-		for (int i = 0; i < board.length; i++) {
+		for (int i = 1; i < board.length; i++) {
 
 			board[i] = ' ';
 		}
@@ -58,15 +60,16 @@ public class TicTacToe {
 	/**
 	 * @param board uc3
 	 */
-	private static void showBoard(char[] board) {
+	private static char[] showBoard(char[] board) {
 		System.out.println("\n.............\n");
 
-		System.out.println("| " + board[0] + " | " + board[1] + " | " + board[2] + " |");
+		System.out.println("| " + board[1] + " | " + board[2] + " | " + board[3] + " |");
 		System.out.println("|-----------|");
-		System.out.println("| " + board[3] + " | " + board[4] + " | " + board[5] + " |");
+		System.out.println("| " + board[4] + " | " + board[5] + " | " + board[6] + " |");
 		System.out.println("|-----------|");
-		System.out.println("| " + board[6] + " | " + board[7] + " | " + board[8] + " |");
+		System.out.println("| " + board[7] + " | " + board[8] + " | " + board[9] + " |");
 		System.out.println("\n.............\n");
+		return board;
 	}
 
 	/**
@@ -77,11 +80,12 @@ public class TicTacToe {
 
 	public static int checkBoard(char[] board) {
 		System.out.println("enter the location to check");
-		System.out.println("next move (1-9)");
+		System.out.println("Enter the cell number (1-9)");
 		int index = sc.nextInt();
 		if (board[index] == ' ') {
 			System.out.println(index + " cell is Empty");
 			return index;
+
 		} else {
 			System.out.println("occupied, kindly check another position");
 			return checkBoard(board);
@@ -96,13 +100,21 @@ public class TicTacToe {
 	 * @param emptycell
 	 * @param player
 	 */
-	public static void makeAMove(char[] board, int emptycell, char player) {
-
+	public static char[] makeAMove(char[] board, int emptycell, char player) {
+		emptycell = checkBoard(board);
 		board[emptycell] = player;
 		System.out.println("updated Board");
 		showBoard(board);
+		return board;
 	}
 
+	/**
+	 * uc5
+	 * 
+	 * @param emptycell
+	 * @param player
+	 * @param board
+	 */
 	public static void nextMove(int emptycell, int player, char[] board) {
 		int k = 0;
 		while (k == 0) {
@@ -145,13 +157,23 @@ public class TicTacToe {
 			}
 			if (i == 9) {
 				System.out.println("Game Tie");
-			} 
+			} else {
+				System.out.println("Do you want to play again Yes/No");
+				String choice = sc.next();
+				if (choice != "Yes") {
+					break;
+				}
+			}
 		}
 	}
 
 	/**
 	 * uc6
 	 * 
+	 * @param board
+	 * @param emptycell
+	 * @param USER
+	 * @param COMPUTER
 	 * @return
 	 */
 	public static int startGame() {
@@ -177,11 +199,6 @@ public class TicTacToe {
 				|| (board[7] == ch && board[5] == ch && board[3] == ch));
 	}
 
-	/**uc8
-	 * @param board
-	 * @param COMPUTER
-	 * @return
-	 */
 	private static boolean computerTurn(char[] board, char COMPUTER) {
 		boolean f = false;
 		if ((board[3] == ' ') && ((board[1] == COMPUTER && board[2] == COMPUTER)
@@ -225,12 +242,8 @@ public class TicTacToe {
 			System.out.println("checked computer winning chance");
 		return f;
 	}
-	/**uc9
-	 * @param board
-	 * @param USER
-	 * @param COMPUTER
-	 * @return
-	 */
+
+	// UC9opponentBlock
 	private static boolean checkOpponent(char[] board, char USER, char COMPUTER) {
 		boolean f = false;
 		if (((board[1] == USER && board[2] == USER) || (board[6] == USER && board[9] == USER)
@@ -274,11 +287,8 @@ public class TicTacToe {
 			System.out.println("Checked opponent Condition");
 		return f;
 	}
-	/**uc 10 &uc 11
-	 * @param board
-	 * @param COMPUTER
-	 * @return
-	 */
+
+	// UC10cornerCondition&&UC11centerConditionandall
 	private static boolean cornerCon(char[] board, char COMPUTER) {
 		boolean f = false;
 		if (board[1] == ' ') {
@@ -310,6 +320,5 @@ public class TicTacToe {
 			f = true;
 		}
 		return f;
-		
 	}
 }
