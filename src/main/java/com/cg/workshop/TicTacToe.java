@@ -1,6 +1,5 @@
 package com.cg.workshop;
 
-
 import java.util.Scanner;
 
 public class TicTacToe {
@@ -11,6 +10,7 @@ public class TicTacToe {
 	static final int HEAD = 1;
 	static final int TAIL = 2;
 	private static int player;
+
 	public static void main(String[] args) {
 		System.out.println("Lets play TicTacToe game");
 		char[] board = createBoard();
@@ -19,7 +19,7 @@ public class TicTacToe {
 		showBoard(board);
 		int emptycell = 1;
 		player = startGame();
-		
+
 	}
 
 	/**
@@ -74,61 +74,158 @@ public class TicTacToe {
 	 * @param sc
 	 * @return uc4
 	 */
-	
 
-public static int checkBoard(char[] board) {
-	System.out.println("enter the location to check");
-	System.out.println("next move (1-9)");
-	int index = sc.nextInt();
-	if (board[index] == ' ') {
-		System.out.println(index + " cell is Empty");
-		return index;
-	} else {
-		System.out.println("occupied, kindly check another position");
-		return checkBoard(board);
+	public static int checkBoard(char[] board) {
+		System.out.println("enter the location to check");
+		System.out.println("next move (1-9)");
+		int index = sc.nextInt();
+		if (board[index] == ' ') {
+			System.out.println(index + " cell is Empty");
+			return index;
+		} else {
+			System.out.println("occupied, kindly check another position");
+			return checkBoard(board);
+		}
+
 	}
 
-}
+	/**
+	 * uc5
+	 * 
+	 * @param board
+	 * @param emptycell
+	 * @param player
+	 */
+	public static void makeAMove(char[] board, int emptycell, char player) {
 
-/**
- * uc5
- * @param board
- * @param emptycell
- * @param player
- */
-public static void makeAMove(char[] board, int emptycell,char player) {
+		board[emptycell] = player;
+		System.out.println("updated Board");
+		showBoard(board);
+	}
 
-	board[emptycell] = player;
-	System.out.println("updated Board");
-	showBoard(board);
-}
+	/**
+	 * uc6
+	 * 
+	 * @return
+	 */
+	public static int startGame() {
+		int toss = (int) (Math.random() * 10) % 2;
+		return toss;
+	}
 
+	/**
+	 * uc7
+	 * 
+	 * @param board
+	 * @param ch
+	 * @return
+	 */
+	private static boolean isWinner(char[] board, char ch) {
+		return ((board[1] == ch && board[2] == ch && board[3] == ch)
+				|| (board[4] == ch && board[5] == ch && board[6] == ch)
+				|| (board[7] == ch && board[8] == ch && board[9] == ch)
+				|| (board[1] == ch && board[4] == ch && board[7] == ch)
+				|| (board[2] == ch && board[5] == ch && board[8] == ch)
+				|| (board[3] == ch && board[6] == ch && board[9] == ch)
+				|| (board[1] == ch && board[5] == ch && board[9] == ch)
+				|| (board[7] == ch && board[5] == ch && board[3] == ch));
+	}
 
-/**uc6
- * @return
- */
-public static int startGame() {
-	int toss = (int) (Math.random() * 10) % 2;
-	return toss;
-}
-
-/**
- * uc7
- * 
- * @param board
- * @param ch
- * @return
- */
-private static boolean isWinner(char[] board, char ch) {
-	return ((board[1] == ch && board[2] == ch && board[3] == ch)
-			|| (board[4] == ch && board[5] == ch && board[6] == ch)
-			|| (board[7] == ch && board[8] == ch && board[9] == ch)
-			|| (board[1] == ch && board[4] == ch && board[7] == ch)
-			|| (board[2] == ch && board[5] == ch && board[8] == ch)
-			|| (board[3] == ch && board[6] == ch && board[9] == ch)
-			|| (board[1] == ch && board[5] == ch && board[9] == ch)
-			|| (board[7] == ch && board[5] == ch && board[3] == ch));
-}
-
-	
+	/**uc8
+	 * @param board
+	 * @param COMPUTER
+	 * @return
+	 */
+	private static boolean computerTurn(char[] board, char COMPUTER) {
+		boolean f = false;
+		if ((board[3] == ' ') && ((board[1] == COMPUTER && board[2] == COMPUTER)
+				|| (board[6] == COMPUTER && board[9] == COMPUTER) || (board[5] == COMPUTER && board[7] == COMPUTER))) {
+			board[3] = COMPUTER;
+			f = true;
+		} else if ((board[1] == ' ') && ((board[2] == COMPUTER && board[3] == COMPUTER)
+				|| (board[5] == COMPUTER && board[9] == COMPUTER) || (board[4] == COMPUTER && board[7] == COMPUTER))) {
+			board[1] = COMPUTER;
+			f = true;
+		} else if ((board[2] == ' ')
+				&& ((board[1] == COMPUTER && board[3] == COMPUTER) || (board[5] == COMPUTER && board[8] == COMPUTER))) {
+			board[2] = COMPUTER;
+			f = true;
+		} else if ((board[4] == ' ')
+				&& ((board[1] == COMPUTER && board[7] == COMPUTER) || (board[5] == COMPUTER && board[6] == COMPUTER))) {
+			board[4] = COMPUTER;
+			f = true;
+		} else if ((board[5] == ' ') && ((board[7] == COMPUTER && board[3] == COMPUTER)
+				|| (board[1] == COMPUTER && board[9] == COMPUTER) || (board[4] == COMPUTER && board[6] == COMPUTER)
+				|| (board[2] == COMPUTER && board[8] == COMPUTER))) {
+			board[5] = COMPUTER;
+			f = true;
+		} else if ((board[6] == ' ')
+				&& ((board[4] == COMPUTER && board[5] == COMPUTER) || (board[3] == COMPUTER && board[9] == COMPUTER))) {
+			board[6] = COMPUTER;
+			f = true;
+		} else if ((board[7] == ' ') && ((board[1] == COMPUTER && board[4] == COMPUTER)
+				|| (board[8] == COMPUTER && board[9] == COMPUTER) || (board[5] == COMPUTER && board[3] == COMPUTER))) {
+			board[7] = COMPUTER;
+			f = true;
+		} else if ((board[8] == ' ')
+				&& ((board[2] == COMPUTER && board[5] == COMPUTER) || (board[7] == COMPUTER && board[9] == COMPUTER))) {
+			board[8] = COMPUTER;
+			f = true;
+		} else if ((board[9] == ' ') && ((board[1] == COMPUTER && board[5] == COMPUTER)
+				|| (board[7] == COMPUTER && board[8] == COMPUTER) || (board[3] == COMPUTER && board[6] == COMPUTER))) {
+			board[9] = COMPUTER;
+			f = true;
+		} else
+			System.out.println("checked computer winning chance");
+		return f;
+	}
+	/**uc9
+	 * @param board
+	 * @param USER
+	 * @param COMPUTER
+	 * @return
+	 */
+	private static boolean checkOpponent(char[] board, char USER, char COMPUTER) {
+		boolean f = false;
+		if (((board[1] == USER && board[2] == USER) || (board[6] == USER && board[9] == USER)
+				|| (board[5] == USER && board[7] == USER)) && board[3] == ' ') {
+			board[3] = COMPUTER;
+			f = true;
+		} else if (((board[2] == USER && board[3] == USER) || (board[5] == USER && board[9] == USER)
+				|| (board[4] == USER && board[7] == USER)) && board[1] == ' ') {
+			board[1] = COMPUTER;
+			f = true;
+		} else if (((board[1] == USER && board[3] == USER) || (board[5] == USER && board[8] == USER))
+				&& board[2] == ' ') {
+			board[2] = COMPUTER;
+			f = true;
+		} else if (((board[1] == USER && board[7] == USER) || (board[5] == USER && board[6] == USER))
+				&& board[4] == ' ') {
+			board[4] = COMPUTER;
+			f = true;
+		} else if (((board[7] == USER && board[3] == USER) || (board[1] == USER && board[9] == USER)
+				|| (board[4] == USER && board[6] == USER) || (board[2] == USER && board[8] == USER))
+				&& board[5] == ' ') {
+			board[5] = COMPUTER;
+			f = true;
+		} else if (((board[4] == USER && board[5] == USER) || (board[3] == USER && board[9] == USER))
+				&& board[6] == ' ') {
+			board[6] = COMPUTER;
+			f = true;
+		} else if (((board[1] == USER && board[4] == USER) || (board[8] == USER && board[9] == USER)
+				|| (board[3] == USER && board[5] == USER)) && board[7] == ' ') {
+			board[7] = COMPUTER;
+			f = true;
+		} else if (((board[2] == USER && board[5] == USER) || (board[7] == USER && board[9] == USER))
+				&& board[8] == ' ') {
+			board[8] = COMPUTER;
+			f = true;
+		} else if (((board[1] == USER && board[5] == USER) || (board[7] == USER && board[8] == USER)
+				|| (board[3] == USER && board[6] == USER)) && board[9] == ' ') {
+			board[9] = COMPUTER;
+			f = true;
+		} else
+			System.out.println("Checked opponent Condition");
+		return f;
+	}
 }
